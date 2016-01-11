@@ -41,19 +41,19 @@ namespace Ethereum.RPC
     ///</Summary>
     public class {1} : RpcRequestResponseHandler<{3}>
         {{
-            public {1}() : base(ApiMethods.{2}.ToString()) { }
+            public {1}() : base(ApiMethods.{2}.ToString()) {{ }}
 
             public async Task<{3}> SendRequestAsync(RpcClient client, {4}, string id = Constants.DEFAULT_REQUEST_ID)
-            {
+            {{
                 return await base.SendRequestAsync(client, id, {4});
-            }
+            }}
             public RpcRequest BuildRequest({4}, string id = Constants.DEFAULT_REQUEST_ID)
-            {
+            {{
                 return base.BuildRequest(id, {4});
-            }
-        }
+            }}
+        }}
 
-    }
+    }}
 
 ";
 
