@@ -117,4 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Summary:
+
+web3_clientVersion
+
+Returns the current client version.
+Parameters
+none
+Returns
+String - The current client version
+
+Example
+// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+
+// Result
+{
+  "id":67,
+  "jsonrpc":"2.0",
+  "result": "Mist/v0.9.3/darwin/go1.4.1"
+}
+</value>
+  </data>
 </root>

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EthClassGenerator
 {
@@ -37,7 +39,7 @@ namespace Ethereum.RPC
 {{
 
     ///<Summary>
-    {0}    
+       {0}    
     ///</Summary>
     public class {1} : RpcRequestResponseHandler<{3}>
         {{
@@ -45,11 +47,11 @@ namespace Ethereum.RPC
 
             public async Task<{3}> SendRequestAsync(RpcClient client, {4}, string id = Constants.DEFAULT_REQUEST_ID)
             {{
-                return await base.SendRequestAsync(client, id, {4});
+                return await base.SendRequestAsync(client, id, {5});
             }}
             public RpcRequest BuildRequest({4}, string id = Constants.DEFAULT_REQUEST_ID)
             {{
-                return base.BuildRequest(id, {4});
+                return base.BuildRequest(id, {5});
             }}
         }}
 
@@ -85,7 +87,7 @@ namespace Ethereum.RPC.Sample.Testers
 {{
     public class {0}Tester : IRPCRequestTester
     {{
-        public async Task<dynamic> ExecuteTest(RpcClient client)
+        public async Task<dynamic> ExecuteTestAsync(RpcClient client)
         {{
             var {1} = new {0}();
             return await {1}.SendRequestAsync(client);
@@ -103,7 +105,7 @@ namespace Ethereum.RPC.Sample.Testers
         {
             string classOutput;
             classOutput = String.Format((string) ParamsTemplate, summary, className, rpcMethodName,
-                returnType, parameters);
+                returnType, parameters, GetParameterNames(parameters));
 
             var file = System.IO.File.CreateText(className + ".cs");
 
@@ -116,6 +118,13 @@ namespace Ethereum.RPC.Sample.Testers
             file.Write(testerOutput);
             file.Flush();
             file.Close();
+        }
+
+        private string GetParameterNames(string parameters)
+        {
+            var parameterArray = parameters.Split(',');
+            var parameterNames = parameterArray.Select(parameter => parameter.Trim().Split(' ')[1]).ToArray();
+            return String.Join(", ", parameterNames);
         }
 
         public void WriteNoParametersFiles(string summary, string className, string classNameInstance, string rpcMethodName, string returnType)
